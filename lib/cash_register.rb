@@ -10,13 +10,18 @@ class CashRegister
     end
 
     def add_item(item, price, quantity = 1)
-    @transactions << price
-    i = quantity
-    until i == 0 do
-      @items << title
-      i -= 1
+      @price = price
+      @total += price * quantity
+      if quantity > 1
+        counter = 0
+        while counter < quantity
+          @items << item
+          counter += 1
+        end
+      else
+        @items << item
+      end
     end
-  end
 
     def apply_discount
         if @discount == 0
@@ -29,8 +34,7 @@ class CashRegister
 
 
     def void_last_transaction
-      self.total = @total - @transactions.pop
-
+      @total -= @price
     end
 
   end
